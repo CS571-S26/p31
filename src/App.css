@@ -1,0 +1,86 @@
+:root {
+  --fd-forest: #2d5016;
+  --fd-moss:   #4a7c2f;
+  --fd-sage:   #7aab5a;
+  --fd-white: 
+}
+
+.fd-navbar {
+  background-color: var(--fd-forest);
+  border-bottom: 3px solid var(--fd-sage);
+}
+
+.fd-navbar .nav-link:hover {
+  color: rgba(255, 255, 255, 0.803)
+}
+
+.fd-navbar .nav-link.active {
+  color: #ffffff !important;
+  background-color: var(--fd-moss);
+  border-radius: 6px;
+}
+
+.about-page {
+  background: var(--fd-cream);
+  min-height: 100vh;
+  padding: 2.5rem 0;
+}
+
+.about-container {
+  max-width: 760px;
+}
+
+.about-section {
+  margin-bottom: 2.5rem;
+}
+
+.about-name {
+  font-weight: 700;
+  color: var(--fd-forest);
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.about-subtitle {
+  color: var(--fd-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.about-linkedin-btn {
+  display: inline-block;
+  background: var(--fd-forest);
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.about-linkedin-btn:hover {
+  background: var(--fd-moss);
+  color: #fff;
+}
+
+.about-section-heading {
+  color: var(--fd-moss);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.about-body {
+  color: var(--fd-text-dark);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.about-resume {
+  width: 100%;
+  height: 680px;
+  border: 1px solid var(--fd-border);
+  border-radius: 10px;
+}
