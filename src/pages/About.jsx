@@ -5,7 +5,7 @@ function About() {
     <div >
       <Container>
         <div >
-          <h1 >Kendall Scholly</h1>
+          <h1 style={{marginTop: 10}}>Kendall Scholly</h1>
           <p >
             BS Psychology,  Minors in Computer Science & Data Science
             </p>

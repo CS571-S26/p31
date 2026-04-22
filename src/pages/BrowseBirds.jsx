@@ -110,7 +110,7 @@ function BrowseBirds() {
 
       <Row className="g-3">
         {pageBirds.map(bird => (
-          <Col key={bird.speciesCode} xs={6} sm={4} md={3}>
+          <Col key={bird.speciesCode} xs={12} sm={12} md={6} lg={4} xl={3}>
             <BirdCard bird={bird} />
           </Col>
         ))}
