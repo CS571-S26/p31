@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import DeckView from "../components/DeckView";
 import Study from "../components/Study";
 
@@ -15,7 +15,6 @@ function Decks() {
   const [newDeckName, setNewDeckName] = useState("");
   const [error, setError] = useState("");
 
-  // Persist view and active deck to localStorage
   useEffect(() => {
     localStorage.setItem("activeView", view);
     if (activeDeck) localStorage.setItem("activeDeck", activeDeck);
@@ -91,15 +90,14 @@ function Decks() {
     );
   }
 
-  // Grid view
   return (
     <Container className="decks-container">
-
-      {/* Header row */}
       <div className="decks-header">
         <h1 className="decks-title">My Decks</h1>
         <div className="decks-create">
-          <input
+          <Form.Label htmlFor="newDeckName" className="visually-hidden">New deck name</Form.Label>
+          <Form.Control
+            id="newDeckName"
             className="decks-input"
             type="text"
             placeholder="New deck name..."
@@ -112,14 +110,12 @@ function Decks() {
             variant="success"
             size="sm"
             onClick={handleCreateDeck}
-            disabled={Object.keys(decks).length >= 10}
-          >
+            disabled={Object.keys(decks).length >= 10}>
             + Create
           </Button>
           {error && <span className="decks-error">{error}</span>}
         </div>
       </div>
-
       {Object.keys(decks).length === 0 ? (
         <p className="decks-empty">No decks yet — create one above to get started.</p>
       ) : (

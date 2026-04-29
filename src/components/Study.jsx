@@ -1,7 +1,6 @@
 import  { useState } from "react";
 import { Button } from "react-bootstrap";
 
-
 export default function Study(props) {
   const [cards, setCards] = useState(() => shuffle(props.deck.birds));
   const [index, setIndex] = useState(0);
@@ -9,20 +8,20 @@ export default function Study(props) {
   const [finished, setFinished] = useState(false);
 
   function handleNext() {
-      if (index + 1 >= cards.length) {
-        setFinished(true);
-      } else {
-        setIndex(i => i + 1);
-      }
+    if (index + 1 >= cards.length) {
+      setFinished(true);
+    } else {
+      setIndex(i => i + 1);
+    }
   }
 
   function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-    return a;
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+      return a;
   }
 
   function handleReshuffle() {
@@ -35,7 +34,7 @@ export default function Study(props) {
   if (finished) {
     return (
       <div className="study-container">
-        <button className="deck-back-btn" onClick={props.onBackToDeck}>← Back to Deck</button>
+        <button className="deck-back-btn" onClick={props.onBackToDeck}>↩ Back to Deck</button>
         <div className="study-finished">
           <h2>You finished the deck!</h2>
           <p>{cards.length} cards reviewed.</p>
@@ -49,14 +48,10 @@ export default function Study(props) {
 
   return (
     <div className="study-container">
-      <button className="deck-back-btn" onClick={props.onBackToDeck}>← Back to Deck</button>
+      <button className="deck-back-btn" onClick={props.onBackToDeck}> ↩ Back to Deck</button>
       <p className="study-progress">{index + 1} / {cards.length}</p>
-
-      {/* Flashcard */}
       <div className="flashcard-wrap" onClick={() => setFlipped(f => !f)}>
         <div className={`flashcard-inner ${flipped ? "flipped" : ""}`}>
-
-          {/* Front — photo */}
           <div className="flashcard-front">
             {bird.photo
               ? <img src={bird.photo} alt={bird.commonName} className="flashcard-img" />
@@ -64,17 +59,13 @@ export default function Study(props) {
             }
             <p className="flashcard-hint">Click to flip</p>
           </div>
-
-          {/* Back — info */}
-          <div className="flashcard-back">
+          <div className="flashcard-back"> 
             <h2 className="flashcard-common">{bird.commonName}</h2>
             <p className="flashcard-sci">{bird.sciName}</p>
             <p className="flashcard-family">{bird.familyComName}</p>
           </div>
-
         </div>
       </div>
-
       <div className="study-controls">
         <Button variant="outline-success" onClick={handleNext}>
           {index + 1 === cards.length ? "Finish" : "Next →"}

@@ -52,7 +52,6 @@ export default function Profile() {
   return (
     <div>
       <h1 className="profile-title">My Profile</h1>
-
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
         {!editMode && (
           <Button variant="outline-dark" size="sm" onClick={() => setEditMode(true)}>
@@ -66,12 +65,10 @@ export default function Profile() {
           </>
         )}
       </div>
-
       <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <ProfileField label="Name"              value={profile.name}            editMode={editMode} inputRef={nameRef} />
+        <ProfileField label="Name" value={profile.name} editMode={editMode} inputRef={nameRef} />
         <ProfileField label="Major / Occupation" value={profile.majorOccupation} editMode={editMode} inputRef={majorRef} />
-        <ProfileField label="Age"               value={profile.age}             editMode={editMode} inputRef={ageRef} />
-
+        <ProfileField label="Age" value={profile.age} editMode={editMode} inputRef={ageRef} />
         <div style={{ marginTop: "1rem" }}>
           <strong style={{ fontSize: "1rem" }}>4 Favorite Birds</strong>
           {favorites.length === 0 ? (
@@ -118,7 +115,7 @@ export default function Profile() {
                         fontWeight: 600,
                       }}
                     >
-                      X Remove
+                      × Remove
                     </button>
                   </Card.Body>
                 </Card>

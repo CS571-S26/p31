@@ -9,8 +9,8 @@ function BirdCard(props) {
   const [open, setOpen] = useState(false);
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem(FAVORITES_KEY);
-    return saved ? JSON.parse(saved) : [];
-  });
+    return saved ? JSON.parse(saved) : []; });
+    
   const [showAlert, setShowAlert] = useState(false);
 
   function handleOpen() {
@@ -105,8 +105,7 @@ function BirdCard(props) {
         <Button
           size="sm"
           variant="danger"
-          onClick={handleAddToFavorites}
-        >
+          onClick={handleAddToFavorites} >
           {isFavorited ? "★ Favorited" : "Add to Favorites"}
         </Button>
       </Card.Body>

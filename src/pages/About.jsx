@@ -36,10 +36,14 @@ function About() {
         <section className="about-section">
           <h2 className="about-section-heading">Why Feather Deck?</h2>
           <p className="about-body">
-            Outside of school and class I spend most of my time outdoors.
-            Over the summer I picked up bird watching at the UW Arboretum where I used the Cornell Merlin 
-            app to memorize the different bird calls I heard. After familiarizing myself with many bird species I began memorizing them visually.
+            Outside of school and class, I spend most of my time outdoors.
+
+            Over the summer, I picked up bird watching at the UW Arboretum, where I used the Cornell Merlin 
+
+            app to memorize the different bird calls I heard. After familiarizing myself with many bird species, I began memorizing them visually.
+
             I created Feather Deck as a way to study the local birds in my area. I hope that other people
+
             can see the beauty in noticing the wildlife that lives around us and above us.
           </p>
         </section>

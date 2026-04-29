@@ -1,14 +1,17 @@
+import { Form } from "react-bootstrap";
 
+export default function ProfileField(props) {
+  const inputId = props.label.replace(/\s+/g, "-").toLowerCase();
 
-export default function ProfileField({ label, value, editMode, inputRef }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-      <span className="profile-label">{label}:</span>
-      {editMode ? (
-        <input
-          ref={inputRef}
-          defaultValue={value}
-          placeholder={label}
+      <Form.Label htmlFor={inputId} className="profile-label">{props.label}:</Form.Label>
+      {props.editMode ? (
+        <Form.Control
+          id={inputId}
+          ref={props.inputRef}
+          defaultValue={props.value}
+          placeholder={props.label}
           style={{
             border: "1px solid var(--fd-border)",
             borderRadius: 6,
@@ -21,11 +24,9 @@ export default function ProfileField({ label, value, editMode, inputRef }) {
         />
       ) : (
         <span className="profile-value">
-          {value || <span style={{ color: "var(--fd-stone)", fontStyle: "italic" }}>Not set</span>}
+          {props.value || <span style={{ color: "var(--fd-stone)", fontStyle: "italic" }}>Not set</span>}
         </span>
       )}
     </div>
   );
 }
-
- ProfileField;

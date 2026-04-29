@@ -1,5 +1,3 @@
-import { useState, useRef, useEffect } from "react";
-import { Button, Card} from "react-bootstrap";
 import pdf from '../Kendall_Scholly_Resume.pdf';
 
 function Resume(){
@@ -10,8 +8,7 @@ return <div style={{ width: "500px", flexShrink: 0 }}>
         src={pdf} 
         type="application/pdf" 
         width="100%" 
-        height="55%" 
-      />
+        height="55%"/>
     </div>
   </div>
 }

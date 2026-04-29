@@ -31,9 +31,8 @@ function DeckView(props) {
                   <Button
                     size="sm"
                     variant="outline-danger"
-                    onClick={() => props.onRemoveBird(bird.speciesCode)}
-                  >
-                    Remove
+                    onClick={() => props.onRemoveBird(bird.speciesCode)}>
+                   × Remove
                   </Button>
                 </Card.Body>
               </Card>
