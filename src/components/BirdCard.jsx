@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
 
 const FAVORITES_KEY = "fd-favorites";

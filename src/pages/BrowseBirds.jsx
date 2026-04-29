@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Button, Form, Pagination } from "react-bootstrap";
+import { Container, Row, Col, Form, Pagination } from "react-bootstrap";
 import BirdCard from "../components/BirdCard";
 
 const PAGE_SIZE = 20;

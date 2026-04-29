@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Button, Card, Row, Col } from "react-bootstrap";
+import { useState, useRef, useEffect } from "react";
+import { Button, Card } from "react-bootstrap";
+import ProfileField from "./ProfileField";
 
 const STORAGE_KEY = "fd-profile";
 const FAVORITES_KEY = "fd-favorites";
@@ -10,7 +11,7 @@ const DEFAULT_PROFILE = {
   age: "",
 };
 
-function Profile() {
+export default function Profile() {
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
   const [editMode, setEditMode] = useState(false);
   const [favorites, setFavorites] = useState(() => {
@@ -61,15 +62,15 @@ function Profile() {
         {editMode && (
           <>
             <Button variant="success" size="sm" onClick={handleSave}>Save</Button>
-            <Button variant="danger" size="sm" onClick={handleCancel}>Cancel</Button>
+            <Button variant="outline-danger" size="sm" onClick={handleCancel}>Cancel</Button>
           </>
         )}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <ProfileField label="Name" value={profile.name} editMode={editMode} inputRef={nameRef} />
-        <ProfileField label="Major / Occupation"  value={profile.majorOccupation} editMode={editMode} inputRef={majorRef} />
-        <ProfileField label="Age"  value={profile.age} editMode={editMode} inputRef={ageRef} />
+        <ProfileField label="Name"              value={profile.name}            editMode={editMode} inputRef={nameRef} />
+        <ProfileField label="Major / Occupation" value={profile.majorOccupation} editMode={editMode} inputRef={majorRef} />
+        <ProfileField label="Age"               value={profile.age}             editMode={editMode} inputRef={ageRef} />
 
         <div style={{ marginTop: "1rem" }}>
           <strong style={{ fontSize: "1rem" }}>4 Favorite Birds</strong>
@@ -88,39 +89,39 @@ function Profile() {
           ) : (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginTop: "0.5rem" }}>
               {favorites.map(bird => (
-                  <Card key={bird.speciesCode} style={{ maxWidth: "200px" }}>
-                    <Card.Img
-                      variant="top"
-                      src={bird.photo ?? ""}
-                      alt={bird.commonName}
-                      style={{ width: '100%', objectFit: "cover" }}
-                    />
-                    <Card.Body style={{ padding: "10px" }}>
-                      <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--fd-text-dark)" }}>
-                        {bird.commonName}
-                      </div>
-                      <div style={{ fontSize: "0.72rem", fontStyle: "italic", color: "var(--fd-stone)" }}>
-                        {bird.sciName}
-                      </div>
-                      <div style={{ fontSize: "0.72rem", color: "var(--fd-text-muted)", marginBottom: "0.4rem" }}>
-                        {bird.familyComName}
-                      </div>
-                      <button
-                        onClick={() => handleRemoveFavorite(bird.speciesCode)}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#c0392b",
-                          cursor: "pointer",
-                          fontSize: "0.78rem",
-                          padding: 0,
-                          fontWeight: 600,
-                        }}
-                      >
-                        X Remove
-                      </button>
-                    </Card.Body>
-                  </Card>
+                <Card key={bird.speciesCode} style={{ maxWidth: "200px" }}>
+                  <Card.Img
+                    variant="top"
+                    src={bird.photo ?? ""}
+                    alt={bird.commonName}
+                    style={{ width: "100%", objectFit: "cover" }}
+                  />
+                  <Card.Body style={{ padding: "10px" }}>
+                    <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--fd-text-dark)" }}>
+                      {bird.commonName}
+                    </div>
+                    <div style={{ fontSize: "0.72rem", fontStyle: "italic", color: "var(--fd-stone)" }}>
+                      {bird.sciName}
+                    </div>
+                    <div style={{ fontSize: "0.72rem", color: "var(--fd-text-muted)", marginBottom: "0.4rem" }}>
+                      {bird.familyComName}
+                    </div>
+                    <button
+                      onClick={() => handleRemoveFavorite(bird.speciesCode)}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#c0392b",
+                        cursor: "pointer",
+                        fontSize: "0.78rem",
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                    >
+                      X Remove
+                    </button>
+                  </Card.Body>
+                </Card>
               ))}
             </div>
           )}
@@ -129,33 +130,3 @@ function Profile() {
     </div>
   );
 }
-
-function ProfileField({ label, value, editMode, inputRef }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-      <span className="profile-label">{label}:</span>
-      {editMode ? (
-        <input
-          ref={inputRef}
-          defaultValue={value}
-          placeholder={label}
-          style={{
-            border: "1px solid var(--fd-border)",
-            borderRadius: 6,
-            padding: "0.3rem 0.75rem",
-            fontSize: "1rem",
-            color: "var(--fd-text-dark)",
-            background: "#ededed",
-            outline: "none",
-          }}
-        />
-      ) : (
-        <span className="profile-value">
-          {value || <span style={{ color: "var(--fd-stone)", fontStyle: "italic" }}>Not set</span>}
-        </span>
-      )}
-    </div>
-  );
-}
-
-export default Profile;

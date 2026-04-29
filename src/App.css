@@ -32,7 +32,7 @@
 }
 
 .about-container {
-  max-width: 760px;
+  max-width: 800px;
 }
 
 .about-section {
@@ -47,7 +47,7 @@
 }
 
 .about-subtitle {
-  color: var(--fd-text-muted);
+  color: var(black);
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
 }
@@ -63,19 +63,15 @@
   text-decoration: none;
 }
 
-.about-linkedin-btn:hover {
-  background: var(--fd-moss);
-  color: #fff;
-}
 
 .about-section-heading {
   color: var(--fd-moss);
   font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+
 
 .about-body {
   color: var(--fd-text-dark);

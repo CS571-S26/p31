@@ -1,4 +1,3 @@
-import React from "react";
 import Profile from "../components/Profile";
 import '../App.css';
 
@@ -17,7 +16,7 @@ function Home() {
           <li>Navigate to the <strong>Decks</strong> page to create a blank flashcard deck. You can create up to 10 decks.</li>
           <li>In the <strong>Browse Birds</strong> tab, select from an abundance of local birds. Click <em>Add to Deck</em> to add a bird to your deck.</li>
           <li>Navigate back to <strong>Decks</strong>, where you can view your deck, remove birds, and study them.</li>
-          <li>The <strong>Study</strong> feature shows an image of the bird — flip the card to reveal its name and info.</li>
+          <li>The <strong>Study</strong> feature shows an image of the bird. Flip the card to reveal its name and info.</li>
           <li>When you finish a deck you can exit study mode or reshuffle for more studying.</li>
         </ol>
 
