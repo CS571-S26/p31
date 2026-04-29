@@ -50,11 +50,11 @@ function Profile() {
 
   return (
     <div>
-      <h1 style={{ margin: 0, marginBottom: "0.5rem" }}>My Profile</h1>
+      <h1 className="profile-title">My Profile</h1>
 
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
         {!editMode && (
-          <Button variant="outline-success" size="sm" onClick={() => setEditMode(true)}>
+          <Button variant="outline-dark" size="sm" onClick={() => setEditMode(true)}>
             Edit Profile
           </Button>
         )}
@@ -67,14 +67,12 @@ function Profile() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <ProfileField label="Name"               value={profile.name}            editMode={editMode} inputRef={nameRef} />
+        <ProfileField label="Name" value={profile.name} editMode={editMode} inputRef={nameRef} />
         <ProfileField label="Major / Occupation"  value={profile.majorOccupation} editMode={editMode} inputRef={majorRef} />
-        <ProfileField label="Age"                value={profile.age}             editMode={editMode} inputRef={ageRef} />
+        <ProfileField label="Age"  value={profile.age} editMode={editMode} inputRef={ageRef} />
 
-        {/* Favorites Section */}
         <div style={{ marginTop: "1rem" }}>
           <strong style={{ fontSize: "1rem" }}>4 Favorite Birds</strong>
-
           {favorites.length === 0 ? (
             <div style={{
               marginTop: "0.5rem",
@@ -135,9 +133,7 @@ function Profile() {
 function ProfileField({ label, value, editMode, inputRef }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-      <span style={{ fontWeight: 600, minWidth: 180, color: "var(--fd-text-muted)", fontSize: "1rem" }}>
-        {label}:
-      </span>
+      <span className="profile-label">{label}:</span>
       {editMode ? (
         <input
           ref={inputRef}
@@ -154,7 +150,7 @@ function ProfileField({ label, value, editMode, inputRef }) {
           }}
         />
       ) : (
-        <span style={{ color: "var(--fd-text-dark)", fontSize: "1rem" }}>
+        <span className="profile-value">
           {value || <span style={{ color: "var(--fd-stone)", fontStyle: "italic" }}>Not set</span>}
         </span>
       )}

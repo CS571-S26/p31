@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
+import  { useState } from "react";
 import { Button } from "react-bootstrap";
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
-function Study(props) {
+export default function Study(props) {
   const [cards, setCards] = useState(() => shuffle(props.deck.birds));
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [finished, setFinished] = useState(false);
 
   function handleNext() {
-    if (index + 1 >= cards.length) {
-      setFinished(true);
-    } else {
-      setIndex(i => i + 1);
-      setFlipped(false);
-    }
+      if (index + 1 >= cards.length) {
+        setFinished(true);
+      } else {
+        setIndex(i => i + 1);
+      }
+  }
+
+  function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+    return a;
   }
 
   function handleReshuffle() {
@@ -83,5 +83,3 @@ function Study(props) {
     </div>
   );
 }
-
-export default Study;

@@ -26,7 +26,6 @@ function DeckView(props) {
                   variant="top"
                   src={bird.photo ?? ""}
                   alt={bird.commonName}
-                  style={{ height: "160px", objectFit: "cover" }}
                 />
                 <Card.Body>
                   <Card.Title style={{ fontSize: "0.95rem" }}>{bird.commonName}</Card.Title>

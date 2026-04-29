@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Pagination } from "react-bootstrap";
 import BirdCard from "../components/BirdCard";
 
 const PAGE_SIZE = 20;
@@ -10,6 +10,7 @@ function BrowseBirds() {
   const [birdsWithPhotos, setBirdsWithPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [nameRef, setName] = useState("");
 
 
   //Retrives local bird codes
@@ -33,7 +34,6 @@ function BrowseBirds() {
       });
   }, []);
 
-    fetch('')
 
   //retrieves taxonomy info for the bird codes
   useEffect(() => {
@@ -78,7 +78,6 @@ function BrowseBirds() {
     setLoading(false);
     return;
   }
-
   const photoPromises = birds.map(bird => {
     const slug = bird.sciName.trim().replace(/ /g, "_");
     return fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${slug}`)
@@ -95,45 +94,62 @@ function BrowseBirds() {
 
 }, [birds]);
 
+  const Reset = () => {
+    setName("");
+    setPage(1);
+  };
 
- const totalPages = Math.ceil(birdsWithPhotos.length / PAGE_SIZE);
-  const pageBirds = birdsWithPhotos.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  let filteredBirds = birdsWithPhotos;
+  filteredBirds = filteredBirds.filter(b =>
+    b.commonName.toLowerCase().includes(nameRef.toLowerCase().trim())
+  );
+
+  let numPages = Math.ceil(filteredBirds.length / PAGE_SIZE);
+  let pageArray = [];
+  for (let i = 0; i < numPages; i++) {
+    pageArray[i] = i + 1;
+  }
 
   if (loading) {
     return <div>Loading birds...</div>;
   }
 
   return (
-    <Container>
-      <h1>Browse Birds</h1>
-      <p>{birdsWithPhotos.length} species found in Dane County</p>
+    <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px" }}>
+          <div>
+            <h1 style={{ margin: 0 }}>Browse Birds</h1>
+            <p style={{ margin: 0 }}>There are <strong>{filteredBirds.length}</strong> bird(s) matching your search.</p>
+          </div>
+          <Form.Label htmlFor="searchName" className="visually-hidden">Search by bird name</Form.Label>
+          <Form.Control
+            id="searchName"
+            value={nameRef}
+            onChange={e => { setName(e.target.value); setPage(1); }}
+            placeholder="Search for a bird..."
+            style={{ maxWidth: "450px" }}
+          />
+        </div>
+        <hr />
+      <Container fluid>
+        <Row>
+          {filteredBirds.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(bird => (
+            <Col key={bird.speciesCode} xs={12} sm={12} md={6} lg={4} xl={3}>
+              <BirdCard bird={bird} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
 
-      <Row className="g-3">
-        {pageBirds.map(bird => (
-          <Col key={bird.speciesCode} xs={12} sm={12} md={6} lg={4} xl={3}>
-            <BirdCard bird={bird} />
-          </Col>
+      <br />
+      <Pagination>
+        <Pagination.Prev onClick={() => setPage(page - 1)} disabled={page === 1}>Previous</Pagination.Prev>
+        {pageArray.map(num => (
+          <Pagination.Item key={num} active={page === num} onClick={() => setPage(num)}>{num}</Pagination.Item>
         ))}
-      </Row>
-
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '2rem' }}>
-        <Button
-          variant="outline-success"
-          onClick={() => setPage(p => Math.max(1, p - 1))}
-          disabled={page === 1}
-        >
-          ← Prev
-        </Button>
-        <span style={{ alignSelf: 'center' }}>Page {page} of {totalPages}</span>
-        <Button
-          variant="outline-success"
-          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-          disabled={page === totalPages}
-        >
-          Next →
-        </Button>
-      </div>
-    </Container>
+        <Pagination.Next onClick={() => setPage(page + 1)} disabled={page === numPages || filteredBirds.length === 0}>Next</Pagination.Next>
+      </Pagination>
+    </div>
   );
 }
 

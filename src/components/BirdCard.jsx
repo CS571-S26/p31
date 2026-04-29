@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 
 const FAVORITES_KEY = "fd-favorites";
 const DECKS_KEY = "decks";
@@ -11,6 +11,7 @@ function BirdCard(props) {
     const saved = localStorage.getItem(FAVORITES_KEY);
     return saved ? JSON.parse(saved) : [];
   });
+  const [showAlert, setShowAlert] = useState(false);
 
   function handleOpen() {
     const saved = localStorage.getItem(DECKS_KEY);
@@ -35,13 +36,27 @@ function BirdCard(props) {
   }
 
   function handleAddToFavorites() {
-    if (favorites.length >= 4) return;
-    const alreadyIn = favorites.some(b => b.speciesCode === props.bird.speciesCode);
-    if (alreadyIn) return;
-    const updated = [...favorites, props.bird];
+  const saved = localStorage.getItem(FAVORITES_KEY);
+  const currentFavorites = saved ? JSON.parse(saved) : [];
+
+  const alreadyIn = currentFavorites.some(b => b.speciesCode === props.bird.speciesCode);
+
+  if (alreadyIn) {
+    const updated = currentFavorites.filter(b => b.speciesCode !== props.bird.speciesCode);
     setFavorites(updated);
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+    return;
   }
+
+  if (currentFavorites.length >= 4) {
+    setShowAlert(true);
+    return;
+  }
+
+  const updated = [...currentFavorites, props.bird];
+  setFavorites(updated);
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
+}
 
   const deckList = Object.keys(decks);
   const isFavorited = favorites.some(b => b.speciesCode === props.bird.speciesCode);
@@ -50,12 +65,18 @@ function BirdCard(props) {
     <Card>
       <Card.Img variant="top" src={props.bird.photo ?? ""} alt={props.bird.commonName} />
       <Card.Body>
-        <Card.Title>{props.bird.commonName}</Card.Title>
-        <Card.Text>{props.bird.sciName}</Card.Text>
-        <Card.Text>{props.bird.familyComName}</Card.Text>
+        <Card.Title style={{ fontSize: "20px", marginBottom: "0.25rem" }}>{props.bird.commonName}</Card.Title>
+        <Card.Text style={{ fontSize: "0.8rem", marginBottom: "0.1rem" }}>{props.bird.sciName}</Card.Text>
+        <Card.Text style={{ fontSize: "0.8rem", marginBottom: "0.5rem" }}>{props.bird.familyComName}</Card.Text>
+
+        {showAlert && (
+          <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+            You already have 4 favorite birds — remove one first.
+          </Alert>
+        )}
 
         <div style={{ position: "relative", display: "inline-block" }}>
-          <Button size="sm" variant="primary" onClick={handleOpen}>
+          <Button size="sm" variant="success" onClick={handleOpen}>
             Add to Deck ▾
           </Button>
 
@@ -83,8 +104,7 @@ function BirdCard(props) {
         {' '}
         <Button
           size="sm"
-          variant="outline-secondary"
-          disabled={favorites.length >= 4 || isFavorited}
+          variant="danger"
           onClick={handleAddToFavorites}
         >
           {isFavorited ? "★ Favorited" : "Add to Favorites"}
